@@ -1,0 +1,26 @@
+[project]
+name = "minesweeper-solver-14"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "udon1206", email = "udon120622@gmail.com" }
+]
+dependencies = [
+    "ortools>=9.10.4067",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/minesweeper_solver_14"]
