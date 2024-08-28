@@ -10,6 +10,8 @@ def add_lie_rule(
     all_mines_count: int,
     coffeences: Optional[list[list[int]]] = None,
 ) -> None:
+    if coffeences is None:
+        coffeences = [[1 for _ in range(len(grid[0]))] for _ in range(len(grid))]
     rows = len(grid)
     cols = len(grid[0])
     for r in range(rows):
