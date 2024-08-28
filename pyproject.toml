@@ -7,6 +7,7 @@ authors = [
 ]
 dependencies = [
     "ortools>=9.10.4067",
+    "pydantic>=2.8.2",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
@@ -17,10 +18,21 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "black>=24.8.0",
+    "mypy>=1.11.2",
+    "ruff>=0.6.2",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/minesweeper_solver_14"]
+
+[tool.rye.scripts]
+solve = "rye run python src/minesweeper_solver_14/main.py"
+lint = { chain = ["lint:black", "lint:ruff", "lint:mypy" ] }
+"lint:black" = "rye run black ."
+"lint:mypy" = "rye run mypy --strict src/minesweeper_solver_14"
+"lint:ruff" = "rye run ruff check src/minesweeper_solver_14"

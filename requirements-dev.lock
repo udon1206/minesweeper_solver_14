@@ -12,22 +12,46 @@
 -e file:.
 absl-py==2.1.0
     # via ortools
+annotated-types==0.7.0
+    # via pydantic
+black==24.8.0
+click==8.1.7
+    # via black
 immutabledict==4.2.0
     # via ortools
+mypy==1.11.2
+mypy-extensions==1.0.0
+    # via black
+    # via mypy
 numpy==2.1.0
     # via ortools
     # via pandas
 ortools==9.10.4067
     # via minesweeper-solver-14
+packaging==24.1
+    # via black
 pandas==2.2.2
     # via ortools
+pathspec==0.12.1
+    # via black
+platformdirs==4.2.2
+    # via black
 protobuf==5.27.3
     # via ortools
+pydantic==2.8.2
+    # via minesweeper-solver-14
+pydantic-core==2.20.1
+    # via pydantic
 python-dateutil==2.9.0.post0
     # via pandas
 pytz==2024.1
     # via pandas
+ruff==0.6.2
 six==1.16.0
     # via python-dateutil
+typing-extensions==4.12.2
+    # via mypy
+    # via pydantic
+    # via pydantic-core
 tzdata==2024.1
     # via pandas
