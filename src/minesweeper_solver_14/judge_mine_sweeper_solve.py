@@ -41,6 +41,5 @@ def judge_minesweeper_solve(
     # Create the solver and solve the model
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
-
     # Output the solution
     return str(status) == str(cp_model.FEASIBLE) or str(status) == str(cp_model.OPTIMAL)

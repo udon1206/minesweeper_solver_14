@@ -1,4 +1,5 @@
 from ortools.sat.python.cp_model import CpModel, IntVar
+from minesweeper_solver_14.util.add_or_expressions import add_or_expressions
 
 
 # 参考: https://qiita.com/semiexp/items/f38d015c55195186d267
@@ -35,19 +36,28 @@ def add_connect_rule(
                 if (i, j) != (r, c)
             ]
 
-    less_labels = [
-        [
-            [model.NewBoolVar(f"less_{r}_{c}_{i}_{j}") for (i, j) in neighbors[(r, c)]]
-            for c in range(cols)
-        ]
-        for r in range(rows)
-    ]
-
     for r in range(rows):
         for c in range(cols):
-            for (i, j), less_label in zip(neighbors[(r, c)], less_labels[r][c]):
-                model.Add((connect_labels[r][c] > connect_labels[i][j])).OnlyEnforceIf(
-                    less_label
+            exprs = []
+            for i, j in neighbors[(r, c)]:
+                exprs.append(
+                    [
+                        (
+                            connect_labels[r][c] > connect_labels[i][j],
+                            [mines[r][c]],
+                        ),
+                        (
+                            mines[i][j] == 1,
+                            [mines[r][c]],
+                        ),
+                    ]
                 )
-                model.Add(mines[i][j] == 1).OnlyEnforceIf(less_label)
-            model.AddBoolOr(zero_labels[r][c], *less_labels[r][c], mines[r][c].Not())
+                exprs.append(
+                    [
+                        (
+                            zero_labels[r][c] == 1,
+                            [mines[r][c]],
+                        )
+                    ]
+                )
+            add_or_expressions(model=model, exprs=exprs)
