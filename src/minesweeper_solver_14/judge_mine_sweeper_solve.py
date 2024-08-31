@@ -8,6 +8,7 @@ from minesweeper_solver_14.rule.connect import add_connect_rule
 from minesweeper_solver_14.rule.out import add_out_rule
 from minesweeper_solver_14.rule.dual import add_dual_rule
 from minesweeper_solver_14.rule.snake import add_snake_rule
+from minesweeper_solver_14.rule.balance import add_balance_rule
 
 
 def judge_minesweeper_solve(
@@ -22,6 +23,7 @@ def judge_minesweeper_solve(
     is_out: bool = False,
     is_dual: bool = False,
     is_snake: bool = False,
+    is_balance: bool = False,
 ) -> bool:
     # Get the dimensions of the grid
     rows = len(grid)
@@ -34,6 +36,7 @@ def judge_minesweeper_solve(
     mines = [
         [model.NewBoolVar(f"mine_{r}_{c}") for c in range(cols)] for r in range(rows)
     ]
+
     if is_lie:
         add_lie_rule(model, grid, mines, confirm_mines, all_mines_count)
     else:
@@ -50,6 +53,9 @@ def judge_minesweeper_solve(
         add_dual_rule(model, mines, rows, cols)
     if is_snake:
         add_snake_rule(model, mines, rows, cols)
+    if is_balance:
+        add_balance_rule(model, mines, rows, cols, all_mines_count)
+
     # Create the solver and solve the model
     solver = cp_model.CpSolver()
     status = solver.Solve(model)

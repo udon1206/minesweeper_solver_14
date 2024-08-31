@@ -28,6 +28,7 @@ def solve_minesweeper14(
     is_out: bool = False,
     is_dual: bool = False,
     is_snake: bool = False,
+    is_balance: bool = False,
 ) -> Result:
     rows = len(grid)
     cols = len(grid[0])
@@ -60,6 +61,7 @@ def solve_minesweeper14(
                     is_out,
                     is_dual,
                     is_snake,
+                    is_balance,
                 ):
                     result.result.append(Status(r=i, c=j, flag=bool(val ^ 1)))
                     confirm_mines[i][j] = val ^ 1

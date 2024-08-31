@@ -14,6 +14,7 @@ class Environment(BaseModel):
     is_out: bool = False
     is_dual: bool = False
     is_snake: bool = False
+    is_balance: bool = False
 
     # grid の成分の和を返す
     def get_grid(self) -> list[list[int]]:
