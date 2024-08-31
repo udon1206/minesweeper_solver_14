@@ -25,6 +25,7 @@ def solve_minesweeper14(
     is_connect: bool = False,
     is_lie: bool = False,
     is_triple: bool = False,
+    is_out: bool = False,
 ) -> Result:
     rows = len(grid)
     cols = len(grid[0])
@@ -54,6 +55,7 @@ def solve_minesweeper14(
                     coffeences,
                     is_lie,
                     is_triple,
+                    is_out,
                 ):
                     result.result.append(Status(r=i, c=j, flag=bool(val ^ 1)))
                     confirm_mines[i][j] = val ^ 1

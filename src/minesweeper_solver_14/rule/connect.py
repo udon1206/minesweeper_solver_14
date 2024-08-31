@@ -1,4 +1,9 @@
-from ortools.sat.python.cp_model import CpModel, IntVar
+from ortools.sat.python.cp_model import (
+    CpModel,
+    IntVar,
+    BoundedLinearExpression,
+    _NotBooleanVariable,
+)
 from minesweeper_solver_14.util.add_or_expressions import add_or_expressions
 
 
@@ -38,7 +43,14 @@ def add_connect_rule(
 
     for r in range(rows):
         for c in range(cols):
-            exprs = []
+            exprs: list[
+                list[
+                    tuple[
+                        BoundedLinearExpression | bool,
+                        list[IntVar | _NotBooleanVariable],
+                    ]
+                ]
+            ] = []
             for i, j in neighbors[(r, c)]:
                 exprs.append(
                     [

@@ -11,6 +11,7 @@ class Environment(BaseModel):
     is_connect: bool = False
     is_lie: bool = False
     is_triple: bool = False
+    is_out: bool = False
 
     # grid の成分の和を返す
     def get_grid(self) -> list[list[int]]:

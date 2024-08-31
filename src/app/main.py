@@ -22,11 +22,6 @@ app.add_middleware(
 )
 
 
-class Item(BaseModel):
-    price: float
-    tax: Union[float, None] = None
-
-
 @app.post("/solve")
 async def solve(environment: Environment) -> Result:
     return solve_minesweeper14(
@@ -37,4 +32,5 @@ async def solve(environment: Environment) -> Result:
         is_connect=environment.is_connect,
         is_lie=environment.is_lie,
         is_triple=environment.is_triple,
+        is_out=environment.is_out,
     )

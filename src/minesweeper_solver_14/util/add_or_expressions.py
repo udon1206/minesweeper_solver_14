@@ -1,8 +1,13 @@
-from ortools.sat.python.cp_model import BoundedLinearExpression, CpModel, IntVar
+from ortools.sat.python.cp_model import (
+    BoundedLinearExpression,
+    CpModel,
+    IntVar,
+    _NotBooleanVariable,
+)
 import uuid
 
 expr = BoundedLinearExpression | bool
-only_if = IntVar
+only_if = IntVar | _NotBooleanVariable
 
 
 def add_or_expressions(

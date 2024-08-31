@@ -5,6 +5,7 @@ from minesweeper_solver_14.rule.lie import add_lie_rule
 from minesweeper_solver_14.rule.quad import add_quad_rule
 from minesweeper_solver_14.rule.triple import add_triple_rule
 from minesweeper_solver_14.rule.connect import add_connect_rule
+from minesweeper_solver_14.rule.out import add_out_rule
 
 
 def judge_minesweeper_solve(
@@ -16,6 +17,7 @@ def judge_minesweeper_solve(
     coffeences: Optional[list[list[int]]] = None,
     is_lie: bool = False,
     is_triple: bool = False,
+    is_out: bool = False,
 ) -> bool:
     # Get the dimensions of the grid
     rows = len(grid)
@@ -38,6 +40,8 @@ def judge_minesweeper_solve(
         add_connect_rule(model, mines, rows, cols)
     if is_triple:
         add_triple_rule(model, mines)
+    if is_out:
+        add_out_rule(model, mines, rows, cols)
     # Create the solver and solve the model
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
