@@ -32,4 +32,5 @@ async def solve(environment: Environment) -> Result:
         is_triple=environment.is_triple,
         is_out=environment.is_out,
         is_dual=environment.is_dual,
+        is_snake=environment.is_snake,
     )

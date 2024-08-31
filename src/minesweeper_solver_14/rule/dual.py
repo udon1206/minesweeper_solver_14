@@ -7,7 +7,6 @@ from ortools.sat.python.cp_model import (
 def add_dual_rule(
     model: CpModel, mines: list[list[IntVar]], rows: int, cols: int
 ) -> None:
-    print("add_dual_rule")
     dr = [-1, 0, 1, 0]
     dc = [0, 1, 0, -1]
     for r in range(rows):
