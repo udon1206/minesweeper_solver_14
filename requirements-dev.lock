@@ -14,11 +14,49 @@ absl-py==2.1.0
     # via ortools
 annotated-types==0.7.0
     # via pydantic
+anyio==4.4.0
+    # via httpx
+    # via starlette
+    # via watchfiles
 black==24.8.0
+certifi==2024.8.30
+    # via httpcore
+    # via httpx
 click==8.1.7
     # via black
+    # via typer
+    # via uvicorn
+dnspython==2.6.1
+    # via email-validator
+email-validator==2.2.0
+    # via fastapi
+fastapi==0.112.2
+    # via minesweeper-solver-14
+fastapi-cli==0.0.5
+    # via fastapi
+h11==0.14.0
+    # via httpcore
+    # via uvicorn
+httpcore==1.0.5
+    # via httpx
+httptools==0.6.1
+    # via uvicorn
+httpx==0.27.2
+    # via fastapi
+idna==3.8
+    # via anyio
+    # via email-validator
+    # via httpx
 immutabledict==4.2.0
     # via ortools
+jinja2==3.1.4
+    # via fastapi
+markdown-it-py==3.0.0
+    # via rich
+markupsafe==2.1.5
+    # via jinja2
+mdurl==0.1.2
+    # via markdown-it-py
 mypy==1.11.2
 mypy-extensions==1.0.0
     # via black
@@ -39,19 +77,50 @@ platformdirs==4.2.2
 protobuf==5.27.3
     # via ortools
 pydantic==2.8.2
+    # via fastapi
     # via minesweeper-solver-14
 pydantic-core==2.20.1
     # via pydantic
+pygments==2.18.0
+    # via rich
 python-dateutil==2.9.0.post0
     # via pandas
+python-dotenv==1.0.1
+    # via uvicorn
+python-multipart==0.0.9
+    # via fastapi
 pytz==2024.1
     # via pandas
+pyyaml==6.0.2
+    # via uvicorn
+rich==13.8.0
+    # via typer
 ruff==0.6.2
+shellingham==1.5.4
+    # via typer
 six==1.16.0
     # via python-dateutil
+sniffio==1.3.1
+    # via anyio
+    # via httpx
+starlette==0.38.2
+    # via fastapi
+typer==0.12.5
+    # via fastapi-cli
 typing-extensions==4.12.2
+    # via fastapi
     # via mypy
     # via pydantic
     # via pydantic-core
+    # via typer
 tzdata==2024.1
     # via pandas
+uvicorn==0.30.6
+    # via fastapi
+    # via fastapi-cli
+uvloop==0.20.0
+    # via uvicorn
+watchfiles==0.24.0
+    # via uvicorn
+websockets==13.0.1
+    # via uvicorn

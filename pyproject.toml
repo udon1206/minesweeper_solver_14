@@ -8,6 +8,7 @@ authors = [
 dependencies = [
     "ortools>=9.10.4067",
     "pydantic>=2.8.2",
+    "fastapi[standard]>=0.112.2",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
@@ -34,5 +35,5 @@ packages = ["src/minesweeper_solver_14"]
 solve = "rye run python src/minesweeper_solver_14/main.py"
 lint = { chain = ["lint:black", "lint:ruff", "lint:mypy" ] }
 "lint:black" = "rye run black ."
-"lint:mypy" = "rye run mypy --strict src/minesweeper_solver_14"
-"lint:ruff" = "rye run ruff check src/minesweeper_solver_14"
+"lint:mypy" = "rye run mypy --strict src/"
+"lint:ruff" = "rye run ruff check src/"
