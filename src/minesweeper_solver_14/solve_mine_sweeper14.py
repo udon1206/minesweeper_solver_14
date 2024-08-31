@@ -31,7 +31,9 @@ def solve_minesweeper14(
     confirm_mines = [[-1 for _ in range(cols)] for _ in range(rows)]
     for i in range(rows):
         for j in range(cols):
-            if grid[i][j] != -1:
+            if grid[i][j] == -3:
+                confirm_mines[i][j] = 1
+            elif grid[i][j] != -1:
                 confirm_mines[i][j] = 0
 
     result = Result(is_feasible=True, result=[], finished=False)
