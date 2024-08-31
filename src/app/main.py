@@ -1,6 +1,4 @@
-from typing import Union
 from fastapi import FastAPI
-from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
 from minesweeper_solver_14.environment import Environment
@@ -33,4 +31,5 @@ async def solve(environment: Environment) -> Result:
         is_lie=environment.is_lie,
         is_triple=environment.is_triple,
         is_out=environment.is_out,
+        is_dual=environment.is_dual,
     )
