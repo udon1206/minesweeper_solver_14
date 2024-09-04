@@ -7,7 +7,7 @@ if __name__ == "__main__":
     input_path = Path(__file__).resolve().parent / "input" / "case.json"
     environment = create_environment_from_json(str(input_path))
     result = solve_minesweeper14(
-        grid=environment.get_grid(),
+        grid_array=environment.grid_array,
         all_mines_count=environment.all_mines_count,
         coffeences=environment.coffeences,
         is_quad=environment.is_quad,

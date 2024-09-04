@@ -9,10 +9,11 @@ from minesweeper_solver_14.rule.out import add_out_rule
 from minesweeper_solver_14.rule.dual import add_dual_rule
 from minesweeper_solver_14.rule.snake import add_snake_rule
 from minesweeper_solver_14.rule.balance import add_balance_rule
+from minesweeper_solver_14.rule.wall import add_wall_rule
 
 
 def judge_minesweeper_solve(
-    grid: list[list[int]],
+    grid_array: list[list[list[int]]],
     confirm_mines: list[list[int]],
     all_mines_count: int,
     is_quad: bool = False,
@@ -24,7 +25,9 @@ def judge_minesweeper_solve(
     is_dual: bool = False,
     is_snake: bool = False,
     is_balance: bool = False,
+    is_wall: bool = False,
 ) -> bool:
+    grid = [[sum(row) for row in grid] for grid in grid_array]
     # Get the dimensions of the grid
     rows = len(grid)
     cols = len(grid[0])
@@ -55,6 +58,8 @@ def judge_minesweeper_solve(
         add_snake_rule(model, mines, rows, cols)
     if is_balance:
         add_balance_rule(model, mines, rows, cols, all_mines_count)
+    if is_wall:
+        add_wall_rule(model, mines, grid_array, rows, cols)
 
     # Create the solver and solve the model
     solver = cp_model.CpSolver()
