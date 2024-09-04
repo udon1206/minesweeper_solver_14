@@ -11,7 +11,6 @@ def add_balance_rule(
     cols: int,
     all_mines_count: int,
 ) -> None:
-    print("add_balance_rule")
     one_line_mines_count = all_mines_count // rows
     for r in range(rows):
         model.Add(sum(mines[r]) == one_line_mines_count)

@@ -33,6 +33,7 @@ def solve_minesweeper14(
     is_neutral: bool = False,
     is_xross: bool = False,
     is_partial: bool = False,
+    is_eye: bool = False,
 ) -> Result:
     grid = [[sum(row) for row in grid] for grid in grid_array]
     rows = len(grid)
@@ -71,6 +72,7 @@ def solve_minesweeper14(
                     is_neutral,
                     is_xross,
                     is_partial,
+                    is_eye,
                 ):
                     result.result.append(Status(r=i, c=j, flag=bool(val ^ 1)))
                     confirm_mines[i][j] = val ^ 1
