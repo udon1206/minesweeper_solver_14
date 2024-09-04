@@ -7,9 +7,7 @@ from minesweeper_solver_14.solve_mine_sweeper14 import Result, solve_minesweeper
 app = FastAPI()
 
 
-origins = [
-    "http://127.0.0.1:5173",
-]
+origins = ["http://127.0.0.1:5173", "http://localhost:5173"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,6 +20,7 @@ app.add_middleware(
 
 @app.post("/solve")
 async def solve(environment: Environment) -> Result:
+    print("hello")
     return solve_minesweeper14(
         grid_array=environment.grid_array,
         all_mines_count=environment.all_mines_count,
@@ -35,4 +34,6 @@ async def solve(environment: Environment) -> Result:
         is_snake=environment.is_snake,
         is_balance=environment.is_balance,
         is_wall=environment.is_wall,
+        is_neutral=environment.is_neutral,
+        is_xross=environment.is_xross,
     )

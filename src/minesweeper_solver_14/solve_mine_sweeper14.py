@@ -30,6 +30,8 @@ def solve_minesweeper14(
     is_snake: bool = False,
     is_balance: bool = False,
     is_wall: bool = False,
+    is_neutral: bool = False,
+    is_xross: bool = False,
 ) -> Result:
     grid = [[sum(row) for row in grid] for grid in grid_array]
     rows = len(grid)
@@ -65,6 +67,8 @@ def solve_minesweeper14(
                     is_snake,
                     is_balance,
                     is_wall,
+                    is_neutral,
+                    is_xross,
                 ):
                     result.result.append(Status(r=i, c=j, flag=bool(val ^ 1)))
                     confirm_mines[i][j] = val ^ 1

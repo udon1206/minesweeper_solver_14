@@ -2,7 +2,7 @@ from typing import Optional
 from ortools.sat.python.cp_model import CpModel, IntVar
 
 
-def add_lie_rule(
+def add_vanilla_rule(
     model: CpModel,
     grid: list[list[int]],
     mines: list[list[IntVar]],
@@ -10,6 +10,7 @@ def add_lie_rule(
 ) -> None:
     if coffeences is None:
         coffeences = [[1 for _ in range(len(grid[0]))] for _ in range(len(grid))]
+
     rows = len(grid)
     cols = len(grid[0])
     for r in range(rows):
@@ -21,8 +22,4 @@ def add_lie_rule(
                     for j in range(max(0, c - 1), min(cols, c + 2))
                     if (i, j) != (r, c)
                 ]
-                plus = model.NewBoolVar(f"plus_{r}_{c}")
-                minus = model.NewBoolVar(f"minus_{r}_{c}")
-                model.Add(sum(neighbors) == grid[r][c] + 1).OnlyEnforceIf(plus)
-                model.Add(sum(neighbors) == grid[r][c] - 1).OnlyEnforceIf(minus)
-                model.AddBoolOr(plus, minus)
+                model.Add(sum(neighbors) == grid[r][c])

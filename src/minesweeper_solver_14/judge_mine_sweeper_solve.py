@@ -10,6 +10,9 @@ from minesweeper_solver_14.rule.dual import add_dual_rule
 from minesweeper_solver_14.rule.snake import add_snake_rule
 from minesweeper_solver_14.rule.balance import add_balance_rule
 from minesweeper_solver_14.rule.wall import add_wall_rule
+from minesweeper_solver_14.rule.neutral import add_neutral_rule
+from minesweeper_solver_14.rule.vanilla import add_vanilla_rule
+from minesweeper_solver_14.rule.xross import add_xross_rule
 
 
 def judge_minesweeper_solve(
@@ -26,6 +29,8 @@ def judge_minesweeper_solve(
     is_snake: bool = False,
     is_balance: bool = False,
     is_wall: bool = False,
+    is_neutral: bool = False,
+    is_xross: bool = False,
 ) -> bool:
     grid = [[sum(row) for row in grid] for grid in grid_array]
     # Get the dimensions of the grid
@@ -40,10 +45,17 @@ def judge_minesweeper_solve(
         [model.NewBoolVar(f"mine_{r}_{c}") for c in range(cols)] for r in range(rows)
     ]
 
+    add_default_rule(model, grid, mines, confirm_mines, all_mines_count)
+
     if is_lie:
-        add_lie_rule(model, grid, mines, confirm_mines, all_mines_count)
+        add_lie_rule(model, grid, mines, coffeences)
+    elif is_neutral:
+        add_neutral_rule(model, mines, grid)
+    elif is_xross:
+        add_xross_rule(model, grid, mines, coffeences)
     else:
-        add_default_rule(model, grid, mines, confirm_mines, all_mines_count, coffeences)
+        add_vanilla_rule(model, grid, mines, coffeences)
+
     if is_quad:
         add_quad_rule(model, mines)
     if is_connect:
@@ -64,5 +76,6 @@ def judge_minesweeper_solve(
     # Create the solver and solve the model
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
+
     # Output the solution
     return str(status) == str(cp_model.FEASIBLE) or str(status) == str(cp_model.OPTIMAL)

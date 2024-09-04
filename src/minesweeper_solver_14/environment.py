@@ -16,6 +16,8 @@ class Environment(BaseModel):
     is_snake: bool = False
     is_balance: bool = False
     is_wall: bool = False
+    is_neutral: bool = False
+    is_xross: bool = False
 
     # grid の成分の和を返す
     def get_grid(self) -> list[list[int]]:
