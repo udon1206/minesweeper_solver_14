@@ -33,6 +33,7 @@ packages = ["src/minesweeper_solver_14"]
 
 [tool.rye.scripts]
 solve = "rye run python src/minesweeper_solver_14/main.py"
+serve = "rye run uvicorn app.main:app --reload"
 lint = { chain = ["lint:black", "lint:ruff", "lint:mypy" ] }
 "lint:black" = "rye run black ."
 "lint:mypy" = "rye run mypy --strict src/"
