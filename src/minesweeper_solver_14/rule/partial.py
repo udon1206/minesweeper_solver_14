@@ -1,5 +1,4 @@
 from ortools.sat.python.cp_model import CpModel, IntVar
-import copy
 
 
 def run_length_encoding(s: str) -> list[tuple[str, int]]:
@@ -17,14 +16,8 @@ def run_length_encoding(s: str) -> list[tuple[str, int]]:
     return result
 
 
-def convert_key_list_to_key(key_list: list[int]) -> str:
-    sorted_key_list = copy.deepcopy(key_list)
-    sorted_key_list.sort()
-    return "".join([str(k) for k in sorted_key_list])
-
-
-def create_wall_rule_dict() -> dict[str, list[int]]:
-    ret: dict[str, list[int]] = {}
+def create_partial_rule_dict() -> dict[int, list[int]]:
+    ret: dict[int, list[int]] = {}
     for S in range(1 << 8):
         s = ""
         for i in range(8):
@@ -38,41 +31,41 @@ def create_wall_rule_dict() -> dict[str, list[int]]:
             tmp = key_list[-1]
             key_list.pop()
             key_list[0] += tmp
-        key = convert_key_list_to_key(key_list)
+        key = len(key_list)
         if key not in ret:
             ret[key] = []
         ret[key].append(S)
     return ret
 
 
-def add_wall_rule(
+def add_partial_rule(
     model: CpModel,
     mines: list[list[IntVar]],
-    grid_array: list[list[list[int]]],
+    grid: list[list[int]],
     rows: int,
     cols: int,
 ) -> None:
-    wall_rule_dict = create_wall_rule_dict()
+    partial_rule_dict = create_partial_rule_dict()
     dr: list[int] = [-1, -1, -1, 0, 1, 1, 1, 0]
     dc: list[int] = [-1, 0, 1, 1, 1, 0, -1, -1]
     for r in range(rows):
         for c in range(cols):
-            wall = [
+            partial = [
                 mines[r + dr[i]][c + dc[i]]
                 for i in range(8)
                 if 0 <= r + dr[i] < rows and 0 <= c + dc[i] < cols
             ]
-            if len(grid_array[r][c]) == 0 or grid_array[r][c][0] < 0:
+            key = grid[r][c]
+            if key < 0:
                 continue
-            key = convert_key_list_to_key(grid_array[r][c])
-            if key not in wall_rule_dict:
+            if key not in partial_rule_dict:
                 print(f"key: {key}")
-            assert key in wall_rule_dict
+            assert key in partial_rule_dict
             rule_list: list[list[int]] = []
-            for S in wall_rule_dict[key]:
+            for S in partial_rule_dict[key]:
                 ok_flag = True
                 for i in range(8):
-                    if (S >> i) & 1 and not (
+                    if ((S >> i) & 1) and not (
                         0 <= r + dr[i] < rows and 0 <= c + dc[i] < cols
                     ):
                         ok_flag = False
@@ -85,4 +78,4 @@ def add_wall_rule(
                     if 0 <= r + dr[i] < rows and 0 <= c + dc[i] < cols
                 ]
                 rule_list.append(rule)
-            model.AddAllowedAssignments(wall, rule_list)
+            model.AddAllowedAssignments(partial, rule_list)

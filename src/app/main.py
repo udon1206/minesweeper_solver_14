@@ -36,4 +36,5 @@ async def solve(environment: Environment) -> Result:
         is_wall=environment.is_wall,
         is_neutral=environment.is_neutral,
         is_xross=environment.is_xross,
+        is_partial=environment.is_partial,
     )
