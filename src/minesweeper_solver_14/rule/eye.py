@@ -9,11 +9,14 @@ def add_eye_rule(
     grid: list[list[int]],
     rows: int,
     cols: int,
+    rule_grid: list[list[str]],
 ) -> None:
     dr = [-1, 0, 1, 0]
     dc = [0, 1, 0, -1]
     for r in range(rows):
         for c in range(cols):
+            if rule_grid[r][c] != "E":
+                continue
             if grid[r][c] < 0:
                 continue
             neighbors = []

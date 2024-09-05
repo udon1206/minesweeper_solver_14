@@ -20,22 +20,15 @@ app.add_middleware(
 
 @app.post("/solve")
 async def solve(environment: Environment) -> Result:
-    print("hello")
     return solve_minesweeper14(
         grid_array=environment.grid_array,
         all_mines_count=environment.all_mines_count,
+        rule_grid=environment.rule_grid,
         is_quad=environment.is_quad,
         is_connect=environment.is_connect,
-        is_lie=environment.is_lie,
         is_triple=environment.is_triple,
         is_out=environment.is_out,
         is_dual=environment.is_dual,
         is_snake=environment.is_snake,
         is_balance=environment.is_balance,
-        is_wall=environment.is_wall,
-        is_neutral=environment.is_neutral,
-        is_xross=environment.is_xross,
-        is_partial=environment.is_partial,
-        is_eye=environment.is_eye,
-        is_multiple=environment.is_multiple,
     )

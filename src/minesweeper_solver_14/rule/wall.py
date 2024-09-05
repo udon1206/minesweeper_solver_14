@@ -51,12 +51,15 @@ def add_wall_rule(
     grid_array: list[list[list[int]]],
     rows: int,
     cols: int,
+    rule_grid: list[list[str]],
 ) -> None:
     wall_rule_dict = create_wall_rule_dict()
     dr: list[int] = [-1, -1, -1, 0, 1, 1, 1, 0]
     dc: list[int] = [-1, 0, 1, 1, 1, 0, -1, -1]
     for r in range(rows):
         for c in range(cols):
+            if rule_grid[r][c] != "W":
+                continue
             wall = [
                 mines[r + dr[i]][c + dc[i]]
                 for i in range(8)

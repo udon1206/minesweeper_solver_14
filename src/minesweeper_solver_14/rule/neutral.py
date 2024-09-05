@@ -8,11 +8,14 @@ def add_neutral_rule(
     model: CpModel,
     mines: list[list[IntVar]],
     grid: list[list[int]],
+    rule_grid: list[list[str]],
 ) -> None:
     rows = len(mines)
     cols = len(mines[0])
     for r in range(rows):
         for c in range(cols):
+            if rule_grid[r][c] != "N":
+                continue
             if grid[r][c] >= 0:
                 dr1 = [-1, -1, 1, 1]
                 dc1 = [-1, 1, 1, -1]

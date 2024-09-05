@@ -18,20 +18,14 @@ class Result(BaseModel):
 def solve_minesweeper14(
     grid_array: list[list[list[int]]],
     all_mines_count: int,
+    rule_grid: list[list[str]],
     is_quad: bool = False,
     is_connect: bool = False,
-    is_lie: bool = False,
     is_triple: bool = False,
     is_out: bool = False,
     is_dual: bool = False,
     is_snake: bool = False,
     is_balance: bool = False,
-    is_wall: bool = False,
-    is_neutral: bool = False,
-    is_xross: bool = False,
-    is_partial: bool = False,
-    is_eye: bool = False,
-    is_multiple: bool = False,
 ) -> Result:
     grid = [[sum(row) for row in grid] for grid in grid_array]
     rows = len(grid)
@@ -57,20 +51,14 @@ def solve_minesweeper14(
                     grid_array,
                     confirm_mines,
                     all_mines_count,
+                    rule_grid,
                     is_quad,
                     is_connect,
-                    is_lie,
                     is_triple,
                     is_out,
                     is_dual,
                     is_snake,
                     is_balance,
-                    is_wall,
-                    is_neutral,
-                    is_xross,
-                    is_partial,
-                    is_eye,
-                    is_multiple,
                 ):
                     result.result.append(Status(r=i, c=j, flag=bool(val ^ 1)))
                     confirm_mines[i][j] = val ^ 1

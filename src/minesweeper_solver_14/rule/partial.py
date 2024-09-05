@@ -44,12 +44,15 @@ def add_partial_rule(
     grid: list[list[int]],
     rows: int,
     cols: int,
+    rule_grid: list[list[str]],
 ) -> None:
     partial_rule_dict = create_partial_rule_dict()
     dr: list[int] = [-1, -1, -1, 0, 1, 1, 1, 0]
     dc: list[int] = [-1, 0, 1, 1, 1, 0, -1, -1]
     for r in range(rows):
         for c in range(cols):
+            if rule_grid[r][c] != "P":
+                continue
             partial = [
                 mines[r + dr[i]][c + dc[i]]
                 for i in range(8)

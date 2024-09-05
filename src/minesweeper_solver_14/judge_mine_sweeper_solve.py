@@ -21,20 +21,14 @@ def judge_minesweeper_solve(
     grid_array: list[list[list[int]]],
     confirm_mines: list[list[int]],
     all_mines_count: int,
+    rule_grid: list[list[str]],
     is_quad: bool = False,
     is_connect: bool = False,
-    is_lie: bool = False,
     is_triple: bool = False,
     is_out: bool = False,
     is_dual: bool = False,
     is_snake: bool = False,
     is_balance: bool = False,
-    is_wall: bool = False,
-    is_neutral: bool = False,
-    is_xross: bool = False,
-    is_partial: bool = False,
-    is_eye: bool = False,
-    is_multiple: bool = False,
 ) -> bool:
     grid = [[sum(row) for row in grid] for grid in grid_array]
     # Get the dimensions of the grid
@@ -51,22 +45,14 @@ def judge_minesweeper_solve(
 
     add_default_rule(model, grid, mines, confirm_mines, all_mines_count)
 
-    if is_lie:
-        add_lie_rule(model, grid, mines)
-    elif is_neutral:
-        add_neutral_rule(model, mines, grid)
-    elif is_xross:
-        add_xross_rule(model, grid, mines)
-    elif is_partial:
-        add_partial_rule(model, mines, grid, rows, cols)
-    elif is_eye:
-        add_eye_rule(model, mines, grid, rows, cols)
-    elif is_wall:
-        add_wall_rule(model, mines, grid_array, rows, cols)
-    elif is_multiple:
-        add_multiple_rule(model, mines, grid)
-    else:
-        add_vanilla_rule(model, grid, mines)
+    add_lie_rule(model, grid, mines, rule_grid)
+    add_neutral_rule(model, mines, grid, rule_grid)
+    add_xross_rule(model, grid, mines, rule_grid)
+    add_partial_rule(model, mines, grid, rows, cols, rule_grid)
+    add_eye_rule(model, mines, grid, rows, cols, rule_grid)
+    add_wall_rule(model, mines, grid_array, rows, cols, rule_grid)
+    add_multiple_rule(model, mines, grid, rule_grid)
+    add_vanilla_rule(model, grid, mines, rule_grid)
 
     if is_quad:
         add_quad_rule(model, mines)

@@ -6,11 +6,14 @@ def add_multiple_rule(
     model: CpModel,
     mines: list[list[IntVar]],
     grid: list[list[int]],
+    rule_grid: list[list[str]],
 ) -> None:
     rows = len(mines)
     cols = len(mines[0])
     for r in range(rows):
         for c in range(cols):
+            if rule_grid[r][c] != "M":
+                continue
             if grid[r][c] >= 0:
                 dr = [-1, 0, 1, 0, 1, 1, -1, -1]
                 dc = [0, 1, 0, -1, 1, -1, 1, -1]
