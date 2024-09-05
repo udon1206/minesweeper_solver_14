@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic import BaseModel
 
 from minesweeper_solver_14.judge_mine_sweeper_solve import judge_minesweeper_solve
@@ -20,7 +18,6 @@ class Result(BaseModel):
 def solve_minesweeper14(
     grid_array: list[list[list[int]]],
     all_mines_count: int,
-    coffeences: Optional[list[list[int]]] = None,
     is_quad: bool = False,
     is_connect: bool = False,
     is_lie: bool = False,
@@ -34,6 +31,7 @@ def solve_minesweeper14(
     is_xross: bool = False,
     is_partial: bool = False,
     is_eye: bool = False,
+    is_multiple: bool = False,
 ) -> Result:
     grid = [[sum(row) for row in grid] for grid in grid_array]
     rows = len(grid)
@@ -61,7 +59,6 @@ def solve_minesweeper14(
                     all_mines_count,
                     is_quad,
                     is_connect,
-                    coffeences,
                     is_lie,
                     is_triple,
                     is_out,
@@ -73,6 +70,7 @@ def solve_minesweeper14(
                     is_xross,
                     is_partial,
                     is_eye,
+                    is_multiple,
                 ):
                     result.result.append(Status(r=i, c=j, flag=bool(val ^ 1)))
                     confirm_mines[i][j] = val ^ 1

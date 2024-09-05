@@ -24,7 +24,6 @@ async def solve(environment: Environment) -> Result:
     return solve_minesweeper14(
         grid_array=environment.grid_array,
         all_mines_count=environment.all_mines_count,
-        coffeences=environment.coffeences,
         is_quad=environment.is_quad,
         is_connect=environment.is_connect,
         is_lie=environment.is_lie,
@@ -38,4 +37,5 @@ async def solve(environment: Environment) -> Result:
         is_xross=environment.is_xross,
         is_partial=environment.is_partial,
         is_eye=environment.is_eye,
+        is_multiple=environment.is_multiple,
     )

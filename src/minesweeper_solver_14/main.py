@@ -9,7 +9,6 @@ if __name__ == "__main__":
     result = solve_minesweeper14(
         grid_array=environment.grid_array,
         all_mines_count=environment.all_mines_count,
-        coffeences=environment.coffeences,
         is_quad=environment.is_quad,
         is_connect=environment.is_connect,
         is_lie=environment.is_lie,

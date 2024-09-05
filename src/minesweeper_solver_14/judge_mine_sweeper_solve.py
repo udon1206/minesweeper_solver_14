@@ -1,4 +1,3 @@
-from typing import Optional
 from ortools.sat.python import cp_model
 from minesweeper_solver_14.rule.default_rule import add_default_rule
 from minesweeper_solver_14.rule.lie import add_lie_rule
@@ -15,6 +14,7 @@ from minesweeper_solver_14.rule.vanilla import add_vanilla_rule
 from minesweeper_solver_14.rule.xross import add_xross_rule
 from minesweeper_solver_14.rule.partial import add_partial_rule
 from minesweeper_solver_14.rule.eye import add_eye_rule
+from minesweeper_solver_14.rule.multiple import add_multiple_rule
 
 
 def judge_minesweeper_solve(
@@ -23,7 +23,6 @@ def judge_minesweeper_solve(
     all_mines_count: int,
     is_quad: bool = False,
     is_connect: bool = False,
-    coffeences: Optional[list[list[int]]] = None,
     is_lie: bool = False,
     is_triple: bool = False,
     is_out: bool = False,
@@ -35,6 +34,7 @@ def judge_minesweeper_solve(
     is_xross: bool = False,
     is_partial: bool = False,
     is_eye: bool = False,
+    is_multiple: bool = False,
 ) -> bool:
     grid = [[sum(row) for row in grid] for grid in grid_array]
     # Get the dimensions of the grid
@@ -52,17 +52,21 @@ def judge_minesweeper_solve(
     add_default_rule(model, grid, mines, confirm_mines, all_mines_count)
 
     if is_lie:
-        add_lie_rule(model, grid, mines, coffeences)
+        add_lie_rule(model, grid, mines)
     elif is_neutral:
         add_neutral_rule(model, mines, grid)
     elif is_xross:
-        add_xross_rule(model, grid, mines, coffeences)
+        add_xross_rule(model, grid, mines)
     elif is_partial:
         add_partial_rule(model, mines, grid, rows, cols)
     elif is_eye:
         add_eye_rule(model, mines, grid, rows, cols)
+    elif is_wall:
+        add_wall_rule(model, mines, grid_array, rows, cols)
+    elif is_multiple:
+        add_multiple_rule(model, mines, grid)
     else:
-        add_vanilla_rule(model, grid, mines, coffeences)
+        add_vanilla_rule(model, grid, mines)
 
     if is_quad:
         add_quad_rule(model, mines)
@@ -78,8 +82,6 @@ def judge_minesweeper_solve(
         add_snake_rule(model, mines, rows, cols)
     if is_balance:
         add_balance_rule(model, mines, rows, cols, all_mines_count)
-    if is_wall:
-        add_wall_rule(model, mines, grid_array, rows, cols)
 
     # Create the solver and solve the model
     solver = cp_model.CpSolver()
